@@ -20,10 +20,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install ruff pytest
-          # Устанавливаем зависимости, только если файл существует
+          pip install ruff pytest reportlab
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          if [ -f pyproject.toml ]; then pip install -e .; fi
           
       - name: Lint with ruff
         run: |
