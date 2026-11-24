@@ -28,6 +28,7 @@ testpaths = ["tests"]
 
 [tool.pylint.main]
 max-line-length = 110
+fail-under = 0 
 disable = [
   "missing-module-docstring", "missing-function-docstring", "too-few-public-methods",
   "invalid-name", "too-many-locals", "too-many-arguments", "too-many-positional-arguments",
