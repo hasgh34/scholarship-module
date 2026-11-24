@@ -1,0 +1,24 @@
+%%{init: {'theme':'neutral','themeVariables':{'fontFamily':'DejaVu Sans','fontSize':'16px','actorLineColor':'#444444','lineColor':'#333333','signalColor':'#222222','actorBorder':'#333333'},'sequence':{'actorMargin':25,'width':125,'messageMargin':34,'boxMargin':8,'noteMargin':8,'mirrorActors':false,'useMaxWidth':false}}}%%
+sequenceDiagram
+    actor D as Деканат
+    participant CLI as CLI
+    participant CFG as config
+    participant CALC as calculator
+    participant AUD as audit
+    participant PDF as pdf_export
+    D->>CLI: запустить расчёт
+    CLI->>CFG: load_rules()
+    CFG-->>CLI: RuleSet
+    alt правила некорректны
+        CFG-->>CLI: ConfigError
+        CLI-->>D: сообщение об ошибке
+    else правила корректны
+        loop каждый студент
+            CLI->>CALC: calculate(record, rules)
+            CALC-->>CLI: Result
+            CLI->>AUD: write(результат, источники баллов)
+        end
+        CLI->>PDF: export_order_pdf(results)
+        PDF-->>CLI: order.pdf
+        CLI-->>D: итоги и PDF для приказа
+    end
