@@ -38,3 +38,8 @@ jobs:
       - name: Run tests
         run: |
           pytest --cov=src/scholarship --cov-report=term-missing --cov-fail-under=80 tests/
+      - name: Show project layout
+        run: |
+          pwd
+          ls -R src | head -40
+          ls tests
