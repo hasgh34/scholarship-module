@@ -1,0 +1,14 @@
+{
+  "students": [
+    {"student_id": "Иванов И.И.", "avg_score": 4.8, "debts": 0, "has_social_certificate": false,
+     "entered_by": "dekanat_petrova",
+     "entries": [
+       {"criterion": "research", "points": 25, "awarded_by": "nauch_ruk_sidorov", "comment": "публикация в сборнике"},
+       {"criterion": "activity", "points": 40, "awarded_by": "kurator_smirnova", "comment": "волонтёрство"}]},
+    {"student_id": "Петров П.П.", "avg_score": 4.1, "debts": 0, "has_social_certificate": true,
+     "entered_by": "dekanat_petrova", "entries": []},
+    {"student_id": "Сидоров С.С.", "avg_score": 4.6, "debts": 1, "has_social_certificate": true,
+     "entered_by": "dekanat_petrova",
+     "entries": [{"criterion": "research", "points": 30, "awarded_by": "nauch_ruk_sidorov", "comment": "олимпиада"}]}
+  ]
+}
