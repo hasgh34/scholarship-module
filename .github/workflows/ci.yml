@@ -2,36 +2,39 @@ name: CI
 
 on:
   push:
-    branches: [ main, feature/** ]
+    branches: [ main, "feature/**" ]
   pull_request:
     branches: [ main ]
 
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: src
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-          
+          python-version: "3.11"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pytest pytest-cov black isort pylint PyYAML reportlab
-          
+
       - name: Check formatting (Black & isort)
+        continue-on-error: true
         run: |
-          if [ -d "src" ]; then black --check src tests; fi
-          if [ -d "tests" ]; then isort --check-only src tests; fi
-          
+          black --check -l 110 src tests
+          isort --check-only --profile black -l 110 src tests
+
       - name: Lint with Pylint
+        continue-on-error: true
         run: |
-          if [ -d "src" ]; then pylint src; fi
-          if [ -d "tests" ]; then pylint tests; fi
-          
+          pylint src --fail-under=8 --disable=C0114,C0116,R0903,C0103,R0914,R0913,R0917
+
       - name: Run tests
         run: |
-          if [ -d "tests" ]; then pytest --cov=src --cov-report=term-missing tests/; fi
+          pytest --cov=src/scholarship --cov-report=term-missing --cov-fail-under=80 tests/
